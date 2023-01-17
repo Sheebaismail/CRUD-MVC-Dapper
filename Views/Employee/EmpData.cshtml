@@ -1,0 +1,44 @@
+﻿@model List<CrudDapper.Models.EmpModel>
+
+<style>
+    thead {
+        background-color: black;
+        color: white
+    }
+
+    table {
+        border: 1px solid black;
+    }
+
+    td, th {
+        padding: 5px;
+        font-size: 14px;
+    }
+</style>
+
+<table class="table table-bordered table-striped" border="1" style="border-color:black">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Language</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Email</td>
+            <td>@item.Gender</td>
+            <td>@item.Phone</td>
+            <td>@item.Language</td>
+
+        </tr>
+
+        }
+    </tbody>
+</table>

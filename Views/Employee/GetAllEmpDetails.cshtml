@@ -1,0 +1,125 @@
+﻿@model IEnumerable<CrudDapper.Models.EmpModel>
+
+<button onclick="location.href='@Url.Action("AddEmployee", "Employee")';return false; " class="btn btn-primary">Add New</button>
+
+<button onclick="location.href='@Url.Action("RestoredEmp", "Employee")';return false;" class="btn btn-primary">Deleted Data</button>
+
+<button onclick="location.href='@Url.Action("PrintPDF", "Employee")';return false;" class="btn btn-primary">print all</button>
+
+<button onclick="location.href='@Url.Action("ExportListUsingEPPlus", "Employee")';return false;" class="btn btn-primary">Export To Excel</button>
+
+<a
+
+<p>
+
+
+</p>
+
+
+
+
+
+@using (Html.BeginForm())
+{
+    <p>
+        Search: @Html.TextBox("searchString", ViewBag.FilterValue as string)
+        <input type="submit" value="Find" style="text-align: right" placeholder="Search your text here" />
+    </p>
+
+}
+<div class="table-responsive-sm">
+    <table class="table table-bordered table-hover table-striped mx-auto table-bordered" id="MyTable">
+        <thead>
+            <tr>
+                @*<th>
+
+                        @Html.DisplayNameFor(model => model.EmpId)
+
+                    </th>*@
+                <th>
+                    @Html.ActionLink("Name", "GetAllEmpDetails", new { Sorting_Order = ViewBag.SortingName })
+
+
+                </th>
+
+                <th>
+
+                    @Html.ActionLink("Email", "GetAllEmpDetails", new { Sorting_Order = ViewBag.SortingEmail })
+
+
+                </th>
+                <th>
+                    @Html.ActionLink("Gender", "GetAllEmpDetails", new { Sorting_Order = ViewBag.SortingGender })
+                </th>
+                <th>
+                    @Html.ActionLink("Phone", "GetAllEmpDetails", new { Sorting_Order = ViewBag.SortingPhone })
+                </th>
+
+                <th>
+                    @Html.ActionLink("Language", "GetAllEmpDetails", new { Sorting_Order = ViewBag.SortingLanguage })
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.EmpId)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Language)
+                    </td>
+
+                    <td>
+
+                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("EditEmpDetails", new { Id = item.EmpId })'"> Edit</button>
+                        @Html.ActionLink("Delete", "DeleteEmp", new { Id = item.EmpId }, new { onclick = "return confirm('Are sure wants to delete?');" })
+
+                        @*<button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteEmp", new { Id = item.EmpId })'">Delete</button>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+            <a class="page-link" href="?page=@(ViewBag.Page - 1)">Previous</a>
+        </li>
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(ViewBag.Page == i ? "active" : "")">
+                <a class="page-link" href="?page=@i">@i</a>
+            </li>
+        }
+        <li class="page-item @(ViewBag.TotalPages < 1 && ViewBag.Page == ViewBag.TotalPages ? "disabled" : "")">
+            <a class="page-link" href="?page=@(ViewBag.Page + 1)">Next</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+
+
